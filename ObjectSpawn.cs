@@ -27,7 +27,7 @@ public class ObjectSpawn : MonoBehaviour
             Debug.Log(i);
 
             ColorBlock newColorBlock = Instantiate(_colorPrefabs[i]);
-            newColorBlock.transform.position = spawnedColors[spawnedColors.Count - 1].End.position - newColorBlock.Begin.localPosition * new Vector3(1f, 1f, 0.05f);
+            newColorBlock.transform.position = spawnedColors[spawnedColors.Count - 1].End.position - newColorBlock.Begin.localPosition;
             spawnedColors.Add(newColorBlock);
         }
         
