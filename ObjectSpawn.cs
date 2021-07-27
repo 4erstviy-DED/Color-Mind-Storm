@@ -6,13 +6,10 @@ public class ObjectSpawn : MonoBehaviour
 {
     [SerializeField] private ColorBlock[] _colorPrefabs;
     [SerializeField] private ColorBlock _firstColorBlock;
-    private List<ColorBlock> spawnedColors = new List<ColorBlock>();
-
-    private ColorChooser _colorRandomizer;
+    [HideInInspector] public List<ColorBlock> spawnedColors = new List<ColorBlock>();
 
     private void Start()
     {
-        _colorRandomizer = gameObject.GetComponent<ColorChooser>();
         spawnedColors.Add(_firstColorBlock);
     }
 
@@ -24,10 +21,9 @@ public class ObjectSpawn : MonoBehaviour
             int j = Random.Range(i, _colorPrefabs.Length);
             _colorPrefabs[i] = _colorPrefabs[j];
             _colorPrefabs[j] = tmp;
-            Debug.Log(i);
 
             ColorBlock newColorBlock = Instantiate(_colorPrefabs[i]);
-            newColorBlock.transform.position = spawnedColors[spawnedColors.Count - 1].End.position - newColorBlock.Begin.localPosition * new Vector3(1f, 1f, 0.05f);
+            newColorBlock.transform.position = spawnedColors[spawnedColors.Count - 1].End.position - newColorBlock.Begin.position;
             spawnedColors.Add(newColorBlock);
         }
         

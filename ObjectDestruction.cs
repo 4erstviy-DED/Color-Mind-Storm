@@ -4,18 +4,28 @@ using UnityEngine;
 
 public class ObjectDestruction : MonoBehaviour
 {
-    [SerializeField] private GameObject _colorChooser;
-    //private List<ColorBlock> spawnedColors = new List<ColorBlock>();
+    private ObjectSpawn _objectSpawn;
+
+    private void Start()
+    {
+        _objectSpawn = FindObjectOfType<ObjectSpawn>();
+    }
 
     private void OnMouseDown()
     {
-        //Debug.Log(gameObject.name);
-        Destroy(gameObject);
-        Score.AddPoint();
+        DestructionColorBlock();
     }
 
-    private void OtherColorDestruction()
+    private void DestructionColorBlock()
     {
+        Destroy(gameObject);
+        Score.AddPoint();
 
+        for (int i = 0; i < _objectSpawn.spawnedColors.Count; i++)
+        {
+            Destroy(_objectSpawn.spawnedColors[i].gameObject);
+            //_objectSpawn.spawnedColors.RemoveAt(i);
+            Debug.Log(_objectSpawn.spawnedColors[i].name);
+        }
     }
 }
