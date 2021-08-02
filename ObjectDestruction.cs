@@ -18,14 +18,15 @@ public class ObjectDestruction : MonoBehaviour
 
     private void DestructionColorBlock()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
         Score.AddPoint();
 
         for (int i = 0; i < _objectSpawn.spawnedColors.Count; i++)
         {
             Destroy(_objectSpawn.spawnedColors[i].gameObject);
-            //_objectSpawn.spawnedColors.RemoveAt(i);
             Debug.Log(_objectSpawn.spawnedColors[i].name);
         }
+
+        _objectSpawn.spawnedColors.RemoveRange(0, _objectSpawn.spawnedColors.Count);
     }
 }
