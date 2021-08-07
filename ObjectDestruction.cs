@@ -7,7 +7,7 @@ public class ObjectDestruction : MonoBehaviour
     private ObjectSpawn _objectSpawn;
 
     public delegate void Send(string ColorName);
-    public static event Send SendColorName;
+    public static event Send SendColor;
 
     private void Start()
     {
@@ -22,8 +22,7 @@ public class ObjectDestruction : MonoBehaviour
     private void DestructionColorBlock()
     {
         Destroy(gameObject);
-        SendColorName(gameObject.name);
-        Score.AddPoint();
+        SendColor(gameObject.name);
 
         for (int i = 0; i < _objectSpawn.spawnedColors.Count; i++)
         {

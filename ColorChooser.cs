@@ -8,6 +8,9 @@ public class ColorChooser : MonoBehaviour
     private Text _colorText;
     private string _randomizedColor;
 
+    public delegate void Send(string ColorName);
+    public static event Send SendColorName;
+
     public void Start()
     {
         _colorText = GetComponent<Text>();
@@ -18,7 +21,7 @@ public class ColorChooser : MonoBehaviour
     {
         _randomizedColor = ChooseLanguageColor.arrColor[Random.Range(0, ChooseLanguageColor.arrColor.Length)];
         _colorText.text = _randomizedColor;
-        Debug.Log("RandomizeColor");
+        SendColorName(_randomizedColor);
     }
 
 }

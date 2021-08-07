@@ -8,7 +8,7 @@ public class ObjectSpawn : MonoBehaviour
     [SerializeField] private ColorBlock _start;
 
     private Vector3 _startPosition = new Vector3(0, 0, 0);
-    private bool _hasStartPoint;
+    private bool _canStartPoint;
 
     public List<ColorBlock> spawnedColors = new List<ColorBlock>();
 
@@ -16,16 +16,11 @@ public class ObjectSpawn : MonoBehaviour
     public delegate void Requests();
     public static event Requests RequestColor;
 
-    private void Start()
-    {
-        ObjectDestruction.SendColorName += SendColorName;
-    }
-
     public void SpawnColor()
     {
         RequestColor?.Invoke();
 
-        if (!_hasStartPoint)
+        if (!_canStartPoint)
         {
             SpawnStartPoint();
         }
@@ -42,7 +37,7 @@ public class ObjectSpawn : MonoBehaviour
             spawnedColors.Add(newColorBlock);
         }
 
-        _hasStartPoint = false;
+        _canStartPoint = false;
     }
 
     private void SpawnStartPoint()
@@ -50,14 +45,8 @@ public class ObjectSpawn : MonoBehaviour
         ColorBlock firstColorBlock = Instantiate(_start);
         firstColorBlock.transform.position = _startPosition;
         spawnedColors.Add(firstColorBlock);
-        _hasStartPoint = true;
-        //RequestColor?.Invoke();
+        _canStartPoint = true;
         Debug.Log("SPAWN_START");
-    }
-
-    private void SendColorName(string name)
-    {
-        Debug.Log(name);
     }
 
 }
