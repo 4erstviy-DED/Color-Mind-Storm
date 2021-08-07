@@ -12,13 +12,19 @@ public class ObjectSpawn : MonoBehaviour
 
     public List<ColorBlock> spawnedColors = new List<ColorBlock>();
 
+    //Test events
+    public delegate void Requests();
+    public static event Requests RequestColor;
+
     private void Start()
     {
-        SpawnStartPoint();
+        ObjectDestruction.SendColorName += SendColorName;
     }
 
     public void SpawnColor()
     {
+        RequestColor?.Invoke();
+
         if (!_hasStartPoint)
         {
             SpawnStartPoint();
@@ -45,6 +51,13 @@ public class ObjectSpawn : MonoBehaviour
         firstColorBlock.transform.position = _startPosition;
         spawnedColors.Add(firstColorBlock);
         _hasStartPoint = true;
+        //RequestColor?.Invoke();
         Debug.Log("SPAWN_START");
     }
+
+    private void SendColorName(string name)
+    {
+        Debug.Log(name);
+    }
+
 }

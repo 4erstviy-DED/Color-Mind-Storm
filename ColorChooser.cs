@@ -8,16 +8,17 @@ public class ColorChooser : MonoBehaviour
     private Text _colorText;
     private string _randomizedColor;
 
-    private void Start()
+    public void Start()
     {
         _colorText = GetComponent<Text>();
-        RandomizeColor();
+        ObjectSpawn.RequestColor += RandomizeColor;
     }
 
-    public void RandomizeColor()
+    private void RandomizeColor()
     {
         _randomizedColor = ChooseLanguageColor.arrColor[Random.Range(0, ChooseLanguageColor.arrColor.Length)];
         _colorText.text = _randomizedColor;
+        Debug.Log("RandomizeColor");
     }
 
 }
