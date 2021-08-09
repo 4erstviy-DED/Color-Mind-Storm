@@ -7,6 +7,11 @@ public class AdditionScore : MonoBehaviour
 {
     private int _currentScore = 0;
     private Text _score;
+    private string _chosenColor;
+    private string _chosenNameColor;
+
+    public delegate void EndGame();
+    public static event EndGame LoseGame;
 
     private void Start()
     {
@@ -17,18 +22,26 @@ public class AdditionScore : MonoBehaviour
 
     private void GetColor(string name)
     {
-        Debug.Log(name.Remove(name.Length -7)); //обрезание приставки (Clone)
-        AddPointToScore();
+        _chosenColor = name.Remove(name.Length - 7); //обрезание приставки (Clone)
+        AddPointToScoreOrLose();
     }
 
     private void GetColorName(string name)
     {
-        Debug.Log(name);
+        _chosenNameColor = name;
     }
 
-    private void AddPointToScore()
+    private void AddPointToScoreOrLose()
     {
-        _currentScore++ ;
-        _score.text = $"SCORE: {_currentScore}";
+        if (_chosenColor == _chosenNameColor)
+        {
+            _currentScore++;
+            _score.text = $"SCORE: {_currentScore}";
+        }
+        else
+        {
+            LoseGame();
+        }
     }
+
 }
