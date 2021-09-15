@@ -13,8 +13,8 @@ public class UI : MonoBehaviour
         AdditionScore.LoseGame += OutputHighScoreAtUI;
     }
 
-    private void OutputHighScoreAtUI()
+    private void OutputHighScoreAtUI(int score)
     {
-        _maxScore.text = "Max" + Load.LoadScore("MaxScore");
+        _maxScore.text = "Max " + Load.LoadScore("MaxScore");
     }
 }

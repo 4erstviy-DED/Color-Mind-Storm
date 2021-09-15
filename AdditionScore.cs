@@ -10,7 +10,7 @@ public class AdditionScore : MonoBehaviour
     private string _chosenColor;
     private string _chosenNameColor;
 
-    public delegate void EndGame();
+    public delegate void EndGame(int currentScore);
     public static event EndGame LoseGame;
 
     private void Start()
@@ -40,7 +40,7 @@ public class AdditionScore : MonoBehaviour
         }
         else
         {
-            LoseGame();
+            LoseGame(_currentScore);
         }
     }
 
