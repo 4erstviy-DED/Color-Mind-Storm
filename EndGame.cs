@@ -11,24 +11,36 @@ public class EndGame : MonoBehaviour
     [SerializeField] private GameObject _colorGame;
 
     private Text _endPanelScoreText;
+    private int _finalScore = 0;
+
+    public delegate void EndTime();
+    public static event EndTime TimeOver;
 
     private void Awake()
     {
-        AdditionScore.LoseGame += GetScorePoint;
+        AdditionScore.LoseGame += Lose;
+        AdditionScore.SendScore += GetScorePoint;
         Timer.TimeOver += SpawnEndPanel;
+
         _endPanelScoreText = _endPanelScore.GetComponent<Text>();
     }
 
     private void GetScorePoint(int currentScore)
     {
-        _endPanelScoreText.text = $"SCORE: {currentScore}";
+        _finalScore = currentScore;
+    }
+
+    private void Lose()
+    {
         SpawnEndPanel();
     }
 
     private void SpawnEndPanel()
     {
+        _endPanelScoreText.text = $"SCORE: {_finalScore}";
         _endPanel.SetActive(true);
         _scoreGame.SetActive(false);
         _colorGame.SetActive(false);
+        TimeOver();
     }
 }

@@ -12,9 +12,15 @@ public class ObjectSpawn : MonoBehaviour
 
     public List<ColorBlock> spawnedColors = new List<ColorBlock>();
 
-    //Test events
     public delegate void Requests();
     public static event Requests RequestColor;
+    public static event Requests RequestTimer;
+
+    private void Start()
+    {
+        SwitchRound.NextRound += SpawnColor;
+        SpawnColor();
+    }
 
     public void SpawnColor()
     {
@@ -24,7 +30,7 @@ public class ObjectSpawn : MonoBehaviour
         {
             SpawnStartPoint();
         }
-
+        
         for (int i = 0; i < _colorPrefabs.Length; i++)
         {
             ColorBlock tmp = _colorPrefabs[i];
@@ -36,6 +42,7 @@ public class ObjectSpawn : MonoBehaviour
             newColorBlock.transform.position = spawnedColors[spawnedColors.Count - 1].End.position - newColorBlock.Begin.position;
             spawnedColors.Add(newColorBlock);
         }
+        RequestTimer();
 
         _canStartPoint = false;
     }

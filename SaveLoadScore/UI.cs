@@ -10,7 +10,7 @@ public class UI : MonoBehaviour
     private void Start()
     {
         _maxScore = GetComponent<Text>();
-        AdditionScore.LoseGame += OutputHighScoreAtUI;
+        //AdditionScore.LoseGame += OutputHighScoreAtUI;
     }
 
     private void OutputHighScoreAtUI(int score)
