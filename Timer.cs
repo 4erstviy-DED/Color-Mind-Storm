@@ -7,17 +7,20 @@ public class Timer : MonoBehaviour
     public delegate void Time();
     public static event Time TimeOver;
 
+    private bool _canMoving;
+
     private void Awake()
     {
         EndGame.TimeOver += CleanObject;
         ObjectSpawn.RequestTimer += RespawnTimer;
+        ObjectDestruction.StopTimer += StopTimer;
 
         RespawnTimer();
     }
 
     private void MovingLine()
     {
-        transform.position -= new Vector3(0.01f, 0, 0);
+        transform.position -= new Vector3(0.015f, 0, 0);
     }
 
     private void OnTriggerExit(Collider other)
@@ -28,7 +31,10 @@ public class Timer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovingLine();
+        if (_canMoving)
+        {
+            MovingLine();
+        }
     }
 
     private void CleanObject()
@@ -36,9 +42,15 @@ public class Timer : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private void StopTimer()
+    {
+        _canMoving = false;
+    }
+
     private void RespawnTimer()
     {
         gameObject.SetActive(true);
         transform.position = new Vector3(0, transform.position.y, transform.position.z);
+        _canMoving = true;
     }
 }

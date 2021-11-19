@@ -22,7 +22,7 @@ public class ObjectSpawn : MonoBehaviour
         SpawnColor();
     }
 
-    public void SpawnColor()
+    private void SpawnColor()
     {
         RequestColor?.Invoke();
 
@@ -30,7 +30,7 @@ public class ObjectSpawn : MonoBehaviour
         {
             SpawnStartPoint();
         }
-        
+
         for (int i = 0; i < _colorPrefabs.Length; i++)
         {
             ColorBlock tmp = _colorPrefabs[i];
@@ -41,7 +41,9 @@ public class ObjectSpawn : MonoBehaviour
             ColorBlock newColorBlock = Instantiate(_colorPrefabs[i]);
             newColorBlock.transform.position = spawnedColors[spawnedColors.Count - 1].End.position - newColorBlock.Begin.position;
             spawnedColors.Add(newColorBlock);
+
         }
+        spawnedColors[1].gameObject.transform.position -= new Vector3(0f, 0f, 1);
         RequestTimer();
 
         _canStartPoint = false;

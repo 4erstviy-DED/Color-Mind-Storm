@@ -33,6 +33,13 @@ public class EndGame : MonoBehaviour
     private void Lose()
     {
         SpawnEndPanel();
+
+        Save.SaveHighScore("MaxScore", _finalScore);
+
+        if (PlayerPrefs.HasKey("MaxScore"))
+        {
+            Debug.Log(Load.LoadScore("MaxScore"));
+        }
     }
 
     private void SpawnEndPanel()

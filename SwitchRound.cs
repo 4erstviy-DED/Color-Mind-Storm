@@ -9,14 +9,18 @@ public class SwitchRound : MonoBehaviour
 
     private bool _nextRound = false;
 
+    private ObjectSpawn _objectSpawn;
+
     private void Start()
     {
+        _objectSpawn = FindObjectOfType<ObjectSpawn>();
+
         AdditionScore.NextRound += TruthNextRound;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (_nextRound)
+        if ((_nextRound) && _objectSpawn.spawnedColors.Count == 0)
         {
             NextRound();
             _nextRound = false;
