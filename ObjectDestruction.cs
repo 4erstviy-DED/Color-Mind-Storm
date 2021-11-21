@@ -21,7 +21,7 @@ public class ObjectDestruction : MonoBehaviour
         _objectSpawn = FindObjectOfType<ObjectSpawn>();
         _destructionPlace = GameObject.Find("DestructionPlace").transform;
 
-        _moveDuration = 0.35f;
+        _moveDuration = 0.3f;
     }
 
     private void OnMouseDown()
